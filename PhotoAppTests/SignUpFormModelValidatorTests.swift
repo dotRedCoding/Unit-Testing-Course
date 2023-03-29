@@ -28,6 +28,8 @@ final class SignUpFormModelValidatorTests: XCTestCase {
         
     }
     
+    //MARK: - First Name Validation
+    
     func testSignFormModelValidator_WhenValidFirstNameProvided_ShouldReturnTrue() {
         // Arrange
         // sut = System Under Test
@@ -57,6 +59,8 @@ final class SignUpFormModelValidatorTests: XCTestCase {
         XCTAssertFalse(isFirstNameValid, "The isFirtNameValid() should have returned FALSE for a first name that is longer than \(SignUpConstants.firstNameMaxLength) characters but it has returned TRUE")
     }
     
+    //MARK: - Last Name Validation
+    
     func testSignFormModelValidator_WhenValidLastNameProvided_ShouldReturnTrue() {
         // Arrange
         
@@ -84,6 +88,8 @@ final class SignUpFormModelValidatorTests: XCTestCase {
         // Assert
         XCTAssertFalse(isLastNameValid, "The isLastNameValid() should have returned FALSE for a last name that is longer than \(SignUpConstants.lastNameMaxLength) characters but it has returned TRUE")
     }
+    
+    //MARK: - Password Valididation
     
     func testSignUpFormModelValidator_WhenValidPassordProvided_ShouldReturnTrue() {
         // Act
@@ -125,17 +131,26 @@ final class SignUpFormModelValidatorTests: XCTestCase {
         XCTAssertFalse(doPasswordsMatch, "The doPasswordsMatch() should have returned FALSE if the passwords are not equal but it has returned TRUE")
     }
     
+  //MARK: - Email Validation
     
-    
-    
-//    func testSignUpFormModelValidator_WhenValidEmailProvided_ShouldReturnTrue() {
-//        // Arrange
-//
-//        // Act
-//        let isEmailValid = sut.isEmailValid(email: "something")
-//
-//        // Assert
-//        XCTAssertTrue(isEmailValid, "The isEmailValid() should have returned TRUE for a valid email but returned false")
-//    }
+    func testSignUpFormModelValidator_WhenValidEmailProvided_ShouldReturnTrue() {
+        
+        // Act
+        let isEmailValid = sut.isEmailValid(email: "test@test.com")
 
+        // Assert
+       XCTAssertTrue(isEmailValid, "Provided valid email address fromat but validation did not pass")
+    }
+    
+    func testSignUpFormModelValidator_WhenInValidEmailProvided_ShouldReturnFalse() {
+        
+        // Act
+        let isEmailValid = sut.isEmailValid(email: "test@test")
+
+        // Assert
+       XCTAssertFalse(isEmailValid, "Provided invalid email address fromat but validation still pass")
+    }
+
+    
+    
 }
