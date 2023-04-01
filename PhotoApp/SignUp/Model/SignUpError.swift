@@ -7,6 +7,9 @@
 
 import Foundation
 
-enum SignUpErrors: Error {
-    case responseModelParsingError
+enum SignUpError: Error {
+    
+    case invalidResponseModel
+    case invalidRequestURLString
+    
 }
