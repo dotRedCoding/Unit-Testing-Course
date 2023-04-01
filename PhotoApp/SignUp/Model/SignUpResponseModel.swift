@@ -8,6 +8,6 @@
 import Foundation
 
 //will most likely be JSON or HTML response
-struct SignUpResponseModel: Codable {
+struct SignUpResponseModel: Decodable {
     let status: String
 }
