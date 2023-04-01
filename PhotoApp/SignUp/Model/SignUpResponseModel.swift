@@ -9,5 +9,5 @@ import Foundation
 
 //will most likely be JSON or HTML response
 struct SignUpResponseModel: Codable {
-    
+    let status: String
 }
