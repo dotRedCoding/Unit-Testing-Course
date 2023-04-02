@@ -11,7 +11,7 @@ class MockUrlProtocol: URLProtocol {
     // provide implementation
     
     static var stubResponseData: Data?
-    
+    static var error: Error?
     override class func canInit(with request: URLRequest) -> Bool {
         return true
     }
@@ -23,7 +23,13 @@ class MockUrlProtocol: URLProtocol {
     override func startLoading() {
         // instead of loading a real request we will hardcord pre defined data for testing
         
-        self.client?.urlProtocol(self, didLoad: MockUrlProtocol.stubResponseData ?? Data())// the did load data will be injected instead of hardcoded
+        
+        if let signUpError = MockUrlProtocol.error {
+            self.client?.urlProtocol(self, didFailWithError: signUpError)
+        } else {
+            self.client?.urlProtocol(self, didLoad: MockUrlProtocol.stubResponseData ?? Data())// the did load data will be injected instead of hardcoded 
+        }
+       
         self.client?.urlProtocolDidFinishLoading(self)
     }
     

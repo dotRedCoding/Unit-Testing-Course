@@ -17,9 +17,9 @@ class SignUpWebService {
         self.urlSession = urlSession
     }
     
-    func signup(withForm formModel: SignUpFormRequestModel, completionHandler: @escaping(SignUpResponseModel?, SignUpError?) -> Void) {
+    func signup(withForm formModel: SignUpFormRequestModel, completionHandler: @escaping (SignUpResponseModel?, SignupError?) -> Void) {
         guard let url = URL(string: urlString) else {
-            completionHandler(nil, SignUpError.invalidRequestURLString)
+            completionHandler(nil, SignupError.invalidRequestURLString)
             return
         }
         var request = URLRequest(url: url)
@@ -28,13 +28,18 @@ class SignUpWebService {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         request.httpBody = try? JSONEncoder().encode(formModel)
         
-        let dataTask = URLSession.shared.dataTask(with: request) { data, response, error in
+        let dataTask = urlSession.dataTask(with: request) { (data, response, error) in
             // code that will handle the data and response object
-            // TODO: Write a unit test to handle an error here
+            if let requestError = error {
+                completionHandler(nil, SignupError.failedRequest(description: requestError.localizedDescription))
+                return
+            }
+            
+            
             if let data = data, let signUpResponseModel = try? JSONDecoder().decode(SignUpResponseModel.self, from: data) {
                 completionHandler(signUpResponseModel, nil)
             } else {
-                completionHandler(nil, SignUpError.invalidResponseModel)
+                completionHandler(nil, SignupError.invalidResponseModel)
             }
             
         }
