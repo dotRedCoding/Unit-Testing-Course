@@ -46,6 +46,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dDv-6u-uik">
+                                <rect key="frame" x="169" y="354" width="78" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Signup"/>
+                                <connections>
+                                    <action selector="signupButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pAZ-Lc-lvH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -56,6 +65,7 @@
                         <outlet property="lastNameTextField" destination="h1P-KJ-Ofb" id="Ob2-N7-2IG"/>
                         <outlet property="passwordTextField" destination="DfI-aJ-YPI" id="MDa-wK-4LA"/>
                         <outlet property="repeatPasswordTextField" destination="1pz-p7-dvn" id="7Ch-Kz-OkM"/>
+                        <outlet property="signupButton" destination="dDv-6u-uik" id="4uu-9u-2ZV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

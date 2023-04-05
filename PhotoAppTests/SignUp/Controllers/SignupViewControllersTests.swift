@@ -25,15 +25,36 @@ final class SignupViewControllersTests: XCTestCase {
         sut = nil
     }
 
-    func testSignupViewController_WhenCreated_HasRequiredTextFieldsEmpty() {
+    func testSignupViewController_WhenCreated_HasRequiredTextFieldsEmpty() throws {
    
         
         // Assert
-        XCTAssertEqual(sut?.firstNameTextField.text, "", "First name text field was not empty when the view controller loaded")
-        XCTAssertEqual(sut?.lastNameTextField.text, "", "Last name text field was not empty when the view controller loaded")
-        XCTAssertEqual(sut?.emailTextField.text, "", "Email text field was not empty when the view controller loaded")
-        XCTAssertEqual(sut?.passwordTextField.text, "", "Password text field was not empty when the view controller loaded")
-        XCTAssertEqual(sut?.repeatPasswordTextField.text, "", "Repeat Password text field was not empty when the view controller loaded")
+        
+        // we are unwrapping each text field and giving it a custom message for future use in the event an IBOutlet becomes disconnected
+        let firstNameTextField = try XCTUnwrap(sut.firstNameTextField, "The firstNameTextField is not connected to an IBOutlet")
+        let lastNameTextField = try XCTUnwrap(sut.lastNameTextField, "The lastNameTextField is not connected to an IBOutlet")
+        let emailTextField = try XCTUnwrap(sut.emailTextField, "The emailTextField is not connected to an IBOutlet")
+        let passwordTextField = try XCTUnwrap(sut.passwordTextField, "The passwordTextField is not connected to an IBOutlet")
+        let repeatPasswordTextField = try XCTUnwrap(sut.repeatPasswordTextField, "The repeatPasswordTextField is not connected to an IBOutlet")
+    
+        // unwrapped values are used in the XCT Assertions
+        XCTAssertEqual(firstNameTextField.text, "", "First name text field was not empty when the view controller loaded")
+        XCTAssertEqual(lastNameTextField.text, "", "Last name text field was not empty when the view controller loaded")
+        XCTAssertEqual(emailTextField.text, "", "Email text field was not empty when the view controller loaded")
+        XCTAssertEqual(passwordTextField.text, "", "Password text field was not empty when the view controller loaded")
+        XCTAssertEqual(repeatPasswordTextField.text, "", "Repeat Password text field was not empty when the view controller loaded")
     }
 
+    func testSignupViewController_WhenCreated_HasSignupButtonAndAction() throws {
+        // Arrange
+        let signupButton: UIButton = try XCTUnwrap(sut.signupButton, "signupButton does not have a referencing outlet")
+        
+        // Act
+        let signupButtonActions = try XCTUnwrap(signupButton.actions(forTarget: sut, forControlEvent: .touchUpInside), "Signup button does not have an actions assigned to it")
+        
+        // Assert
+        XCTAssertEqual(signupButtonActions.count, 1)
+        XCTAssertEqual(signupButtonActions.first, "signupButtonTapped:", "there is no action with the name signupButtonTapped assigned")
+    }
+    
 }
